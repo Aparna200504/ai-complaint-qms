@@ -1,0 +1,1061 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: #f8f9fc;
+  color: #182238;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.main-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(380px, 0.85fr);
+
+  width: 100%;
+  min-height: 100vh;
+
+  border-top: 4px solid #5a3a35;
+}
+
+/* =========================================================
+   LEFT PANEL
+   ========================================================= */
+
+.left-panel {
+  min-width: 0;
+  height: 100vh;
+
+  padding: 42px 46px 55px;
+
+  background: #ffffff;
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 58px;
+}
+
+.header-title {
+  min-width: 0;
+}
+
+.header-title h1 {
+  display: block;
+
+  margin: 0;
+
+  color: #182238;
+
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 700;
+
+  letter-spacing: -0.8px;
+}
+
+.header-title p {
+  display: block;
+
+  margin: 8px 0 0;
+
+  color: #7a8292;
+
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* Backwards compatibility if header uses direct h1/p */
+
+.top-header h1 {
+  display: block;
+
+  margin: 0;
+
+  color: #182238;
+
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 700;
+
+  letter-spacing: -0.8px;
+}
+
+.top-header p {
+  margin: 8px 0 0;
+
+  color: #7a8292;
+
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  flex-shrink: 0;
+
+  padding: 10px 18px;
+
+  border-radius: 24px;
+
+  background: #e5faef;
+
+  color: #23845b;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.status-dot,
+.online-dot {
+  width: 9px;
+  height: 9px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #20c875;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.complaint-form {
+  width: 100%;
+}
+
+.complaint-form section {
+  margin-bottom: 42px;
+}
+
+.complaint-form h2 {
+  margin: 0 0 20px;
+
+  color: #a0a5ae;
+
+  font-size: 16px;
+  line-height: 1.3;
+
+  letter-spacing: 0.5px;
+
+  font-weight: 700;
+}
+
+/* Form two-column layout */
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  gap: 24px 28px;
+}
+
+/* Individual field */
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 9px;
+}
+
+.form-field label {
+  display: block;
+
+  color: #454c59;
+
+  font-size: 17px;
+  line-height: 1.3;
+
+  font-weight: 400;
+}
+
+/* Inputs */
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+
+  border: 1px solid #b9dcfa;
+  border-radius: 9px;
+
+  background: #fbfcff;
+
+  padding: 15px;
+
+  color: #252c38;
+
+  font-size: 17px;
+  line-height: 1.4;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form-field input {
+  min-height: 55px;
+}
+
+.form-field textarea {
+  min-height: 115px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+.form-field select {
+  min-height: 55px;
+
+  appearance: auto;
+}
+
+/* Focus */
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: #7c72ed;
+
+  box-shadow: 0 0 0 3px rgba(81, 69, 223, 0.08);
+}
+
+/* Read-only AI populated fields */
+
+.form-field input[readonly],
+.form-field textarea[readonly] {
+  background: #fbfcff;
+
+  cursor: default;
+}
+
+/* Disabled select should still look normal */
+
+.form-field select:disabled {
+  opacity: 1;
+
+  color: #252c38;
+
+  cursor: default;
+}
+
+/* Description */
+
+.description-field {
+  margin-top: 20px;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+  padding: 60px 30px;
+
+  margin-bottom: 40px;
+
+  border: 2px dashed #d5d9e2;
+  border-radius: 14px;
+
+  background: #fbfcff;
+
+  color: #858c99;
+
+  text-align: center;
+}
+
+/* =========================================================
+   VALIDATION
+   ========================================================= */
+
+.validation-card {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  padding: 16px 20px;
+
+  margin: 24px 0;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.validation-card.valid {
+  background: #eafaf2;
+
+  color: #247a58;
+}
+
+.validation-card.invalid {
+  background: #fff0f0;
+
+  color: #a33a3a;
+}
+
+.validation-icon {
+  flex-shrink: 0;
+
+  font-size: 20px;
+
+  font-weight: bold;
+}
+
+/* =========================================================
+   AI COPILOT RISK ASSESSMENT
+   ========================================================= */
+
+.risk-card {
+  width: 100%;
+
+  margin-top: 24px;
+  padding: 28px;
+
+  border: 1px solid #e2e2fa;
+  border-radius: 14px;
+
+  background: #f5f5ff;
+}
+
+/* Title row */
+
+.risk-title {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 24px;
+
+  color: #4b43c9;
+}
+
+.risk-title h2 {
+  display: block;
+
+  margin: 0;
+
+  color: #38319c;
+
+  font-size: 19px;
+  line-height: 1.3;
+
+  font-weight: 700;
+}
+
+.risk-shield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  color: #5145df;
+
+  font-size: 24px;
+}
+
+/* Risk two-column fields */
+
+.risk-grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+
+  gap: 24px;
+}
+
+/* Risk summary */
+
+.risk-summary {
+  margin-top: 22px;
+}
+
+.risk-summary textarea {
+  min-height: 85px;
+}
+
+/* =========================================================
+   COMMIT BUTTON
+   ========================================================= */
+
+.commit-button {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 30px;
+
+  padding: 18px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #5145df;
+
+  color: #ffffff;
+
+  font-size: 19px;
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  text-align: center;
+
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+
+.commit-button:hover {
+  background: #4539cb;
+}
+
+.commit-button:active {
+  transform: translateY(1px);
+}
+
+.commit-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   RIGHT PANEL
+   ========================================================= */
+
+.right-panel {
+  min-width: 0;
+
+  height: 100vh;
+
+  border-left: 1px solid #e1e4ea;
+
+  background: #f7f8fb;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   COPILOT PANEL
+   ========================================================= */
+
+.copilot-panel {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100vh;
+
+  background: #f7f8fb;
+}
+
+/* =========================================================
+   COPILOT HEADER
+   ========================================================= */
+
+.copilot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-shrink: 0;
+
+  min-height: 100px;
+
+  padding: 18px 28px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e3e5eb;
+}
+
+.copilot-title {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: #182238;
+
+  font-size: 21px;
+  line-height: 1.3;
+
+  font-weight: 700;
+}
+
+.flask-icon {
+  color: #4d43df;
+
+  font-size: 25px;
+}
+
+.copilot-header p {
+  margin: 5px 0 0;
+
+  color: #7c8390;
+
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.online-dot {
+  width: 10px;
+  height: 10px;
+
+  background: #20c875;
+}
+
+/* =========================================================
+   COPILOT CONVERSATION
+   ========================================================= */
+
+.copilot-body {
+  flex: 1;
+
+  min-height: 0;
+
+  padding: 26px;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+}
+
+/* Generic message */
+
+.copilot-message {
+  display: flex;
+
+  gap: 14px;
+
+  width: 100%;
+
+  margin-bottom: 18px;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* Assistant */
+
+.assistant-message {
+  background: #ffffff;
+
+  color: #333b49;
+
+  box-shadow: 0 2px 8px rgba(30, 40, 70, 0.06);
+}
+
+/* User */
+
+.user-message {
+  margin-left: 25px;
+
+  width: calc(100% - 25px);
+
+  background: #5145df;
+
+  color: #ffffff;
+
+  box-shadow: none;
+}
+
+/* Message icon */
+
+.message-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 24px;
+
+  color: #4d43df;
+
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.user-message .message-icon {
+  color: #ffffff;
+}
+
+/* Processing */
+
+.processing-message {
+  padding: 15px;
+
+  color: #686f7d;
+
+  text-align: center;
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   UPLOAD AREA
+   ========================================================= */
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 170px;
+
+  margin-top: 22px;
+
+  padding: 24px;
+
+  border: 2px dashed #c9cde0;
+  border-radius: 14px;
+
+  background: #fbfbff;
+
+  color: #454c59;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.upload-area:hover {
+  border-color: #5a4de3;
+
+  background: #f7f6ff;
+}
+
+.upload-area.processing {
+  opacity: 0.7;
+
+  cursor: wait;
+}
+
+.upload-area input {
+  display: none;
+}
+
+.upload-icon {
+  color: #5145df;
+
+  font-size: 32px;
+}
+
+.upload-area span:last-of-type {
+  color: #858c99;
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   COPILOT INPUT
+   ========================================================= */
+
+.copilot-input-area {
+  flex-shrink: 0;
+
+  padding: 16px 20px 10px;
+
+  background: #ffffff;
+
+  border-top: 1px solid #e3e5eb;
+}
+
+.input-row {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 8px;
+
+  width: 100%;
+
+  padding: 8px;
+
+  border: 1px solid #d9dce4;
+  border-radius: 12px;
+
+  background: #ffffff;
+}
+
+.input-row textarea {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 42px;
+  max-height: 130px;
+
+  padding: 10px 6px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #333a47;
+
+  outline: none;
+
+  resize: vertical;
+
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.input-row textarea::placeholder {
+  color: #9ba1ad;
+}
+
+.input-row textarea:disabled {
+  background: transparent;
+
+  cursor: not-allowed;
+}
+
+/* Attachment button */
+
+.attachment-button,
+.send-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border: 0;
+  border-radius: 9px;
+
+  font-size: 20px;
+}
+
+.attachment-button {
+  background: transparent;
+
+  color: #747b89;
+}
+
+.attachment-button:hover {
+  background: #f1f2f6;
+}
+
+.attachment-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* Send button */
+
+.send-button {
+  background: #5145df;
+
+  color: #ffffff;
+
+  font-size: 19px;
+
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.send-button:hover:not(:disabled) {
+  background: #4539cb;
+}
+
+.send-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* Supported formats */
+
+.upload-hint {
+  margin-top: 8px;
+
+  color: #9ba0aa;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/* Existing paste area compatibility */
+
+.paste-area {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 18px;
+  padding: 16px;
+
+  border: 1px solid #dfe2e8;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #9aa0ab;
+}
+
+/* =========================================================
+   COPILOT FOOTER
+   ========================================================= */
+
+.copilot-footer {
+  flex-shrink: 0;
+
+  padding: 14px 18px;
+
+  border-top: 0;
+
+  background: #ffffff;
+
+  color: #9ba0aa;
+
+  font-size: 12px;
+
+  text-align: center;
+
+  letter-spacing: 0.2px;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.error-card {
+  margin-top: 20px;
+
+  padding: 16px;
+
+  border-radius: 10px;
+
+  background: #fff0f0;
+
+  color: #a33a3a;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   SCROLLBARS
+   ========================================================= */
+
+.left-panel::-webkit-scrollbar,
+.copilot-body::-webkit-scrollbar {
+  width: 7px;
+}
+
+.left-panel::-webkit-scrollbar-track,
+.copilot-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.left-panel::-webkit-scrollbar-thumb,
+.copilot-body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+
+  background: #d5d8e0;
+}
+
+.left-panel::-webkit-scrollbar-thumb:hover,
+.copilot-body::-webkit-scrollbar-thumb:hover {
+  background: #b9bdc8;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .main-content {
+    grid-template-columns:
+      minmax(0, 1.35fr)
+      minmax(360px, 0.85fr);
+  }
+
+  .left-panel {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .top-header {
+    margin-bottom: 45px;
+  }
+
+  .risk-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1000px) {
+  .main-content {
+    grid-template-columns: 1fr;
+
+    min-height: auto;
+  }
+
+  .left-panel {
+    height: auto;
+
+    min-height: auto;
+  }
+
+  .right-panel {
+    height: 650px;
+    min-height: 650px;
+
+    border-left: 0;
+    border-top: 1px solid #e1e4ea;
+  }
+
+  .copilot-panel {
+    height: 650px;
+  }
+}
+
+@media (max-width: 700px) {
+  .left-panel {
+    padding: 25px 20px 40px;
+  }
+
+  .top-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    margin-bottom: 40px;
+  }
+
+  .header-title h1,
+  .top-header h1 {
+    font-size: 27px;
+  }
+
+  .header-title p,
+  .top-header p {
+    font-size: 16px;
+  }
+
+  .form-grid,
+  .risk-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    font-size: 16px;
+  }
+
+  .risk-card {
+    padding: 20px;
+  }
+
+  .copilot-header {
+    padding: 16px 18px;
+  }
+
+  .copilot-title {
+    font-size: 19px;
+  }
+
+  .copilot-body {
+    padding: 18px;
+  }
+
+  .copilot-message {
+    padding: 16px;
+  }
+
+  .user-message {
+    margin-left: 0;
+
+    width: 100%;
+  }
+}

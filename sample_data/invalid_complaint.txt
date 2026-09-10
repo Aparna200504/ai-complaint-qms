@@ -1,0 +1,9 @@
+Complaint Source: Email
+Customer Name: XYZ Pharma
+Product Name: Paracetamol Tablets
+Batch/Lot Number: P650-2501
+Quantity Affected: 10 boxes
+Complaint Type: Product Quality
+Complaint Date: 2026-09-10
+
+The tablets have visible discoloration and spots.
