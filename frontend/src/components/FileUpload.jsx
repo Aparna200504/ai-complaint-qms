@@ -102,7 +102,7 @@ function FileUpload() {
           <div className="copilot-title">
             <span className="flask-icon">⚗</span>
 
-            <strong>AIVOQA Copilot</strong>
+            <strong>AIVOA Copilot</strong>
           </div>
 
           <p>
