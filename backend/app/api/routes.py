@@ -25,77 +25,6 @@ from app.graph.workflow import complaint_graph
 
 router = APIRouter(prefix="/api", tags=["Complaint"])
 
-
-@router.post("/extract-complaint")
-async def extract_complaint(file: UploadFile = File(...)):
-    """
-    Upload a complaint document and extract its raw text.
-    Supported formats: PDF, DOCX, TXT, EML.
-    """
-
-    allowed_extensions = {".pdf", ".docx", ".txt", ".eml"}
-
-    extension = Path(file.filename or "").suffix.lower()
-
-    if extension not in allowed_extensions:
-        raise HTTPException(
-            status_code=400,
-            detail=(
-                f"Unsupported file type: {extension}. "
-                f"Supported formats: {', '.join(sorted(allowed_extensions))}"
-            ),
-        )
-
-    try:
-        file_contents = await file.read()
-
-        with NamedTemporaryFile(
-            suffix=extension,
-            delete=False
-        ) as temporary_file:
-            temporary_file.write(file_contents)
-            temporary_path = temporary_file.name
-
-        try:
-            extracted_text = extract_document(temporary_path)
-        finally:
-            Path(temporary_path).unlink(missing_ok=True)
-
-        return {
-            "filename": file.filename,
-            "file_type": extension,
-            "extracted_text": extracted_text,
-        }
-
-    except Exception as exc:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Document extraction failed: {str(exc)}",
-        )
-
-@router.post("/parse-complaint")
-async def parse_complaint_endpoint(text: str):
-    """
-    Convert raw complaint text into a validated ComplaintForm.
-    """
-
-    if not text.strip():
-        raise HTTPException(
-            status_code=400,
-            detail="Complaint text cannot be empty.",
-        )
-
-    try:
-        complaint = parse_complaint(text)
-
-        return complaint.model_dump()
-
-    except Exception as exc:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Complaint parsing failed: {str(exc)}",
-        )
-
 @router.post("/validate")
 async def validate_complaint_endpoint(complaint: ComplaintForm):
     """
@@ -243,7 +172,6 @@ def process_text_complaint(request: TextComplaintRequest):
             status_code=500,
             detail=f"Complaint text processing failed: {str(exc)}",
         )
-    
 
 
 @router.post("/chat", response_model=ChatResponse)
@@ -339,4 +267,75 @@ def get_complaints():
         raise HTTPException(
             status_code=500,
             detail=f"Failed to retrieve complaints: {str(exc)}",
+        )
+
+
+@router.post("/extract-complaint")
+async def extract_complaint(file: UploadFile = File(...)):
+    """
+    Upload a complaint document and extract its raw text.
+    Supported formats: PDF, DOCX, TXT, EML.
+    """
+
+    allowed_extensions = {".pdf", ".docx", ".txt", ".eml"}
+
+    extension = Path(file.filename or "").suffix.lower()
+
+    if extension not in allowed_extensions:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Unsupported file type: {extension}. "
+                f"Supported formats: {', '.join(sorted(allowed_extensions))}"
+            ),
+        )
+
+    try:
+        file_contents = await file.read()
+
+        with NamedTemporaryFile(
+            suffix=extension,
+            delete=False
+        ) as temporary_file:
+            temporary_file.write(file_contents)
+            temporary_path = temporary_file.name
+
+        try:
+            extracted_text = extract_document(temporary_path)
+        finally:
+            Path(temporary_path).unlink(missing_ok=True)
+
+        return {
+            "filename": file.filename,
+            "file_type": extension,
+            "extracted_text": extracted_text,
+        }
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Document extraction failed: {str(exc)}",
+        )
+
+@router.post("/parse-complaint")
+async def parse_complaint_endpoint(text: str):
+    """
+    Convert raw complaint text into a validated ComplaintForm.
+    """
+
+    if not text.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Complaint text cannot be empty.",
+        )
+
+    try:
+        complaint = parse_complaint(text)
+
+        return complaint.model_dump()
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Complaint parsing failed: {str(exc)}",
         )
