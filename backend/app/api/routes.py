@@ -245,7 +245,7 @@ def save_complaint_endpoint(request: SaveComplaintRequest):
     except Exception as exc:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to save complaint: {str(exc)}",
+            detail=f"Fail while saving complaint: {str(exc)}",
         )
 
 
